@@ -16,6 +16,7 @@ import time
 import os
 import pandas as pd
 import threading
+from tqdm import tqdm
 
 # 定义函数：将视频帧编码为h264格式
 def encode_frame(frame):
@@ -58,6 +59,10 @@ class VideoStreamingServer:
         
         cap = cv2.VideoCapture(self.video_path)  # 打开视频文件
         chunk_id = 0
+        # Count the frame number
+        frame_number = cap.get(cv2.CAP_PROP_FRAME_COUNT) 
+        if thread_id == 0:
+            pbar = tqdm(total=frame_number//30)
         df = []
         try:
             while cap.isOpened():  # 如果视频文件打开成功
@@ -85,6 +90,8 @@ class VideoStreamingServer:
                 df.append({'chunk_id': chunk_id, 't1': t1, 't4': t4, 'encoding_time': encoding_time, 'chunk_size': len(chunk)}) 
 
                 chunk_id += 1
+                if thread_id == 0:
+                    pbar.update(1)
                 if not chunk:
                     break
         except KeyboardInterrupt:
