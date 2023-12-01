@@ -41,31 +41,31 @@
 
 2. 启动服务器：
 
-    ```bash
-    bash start_server.sh
-    ```
+```bash
+bash start_server.sh
+```
 
 或者
 
-    ```bash
-    python core.py \
-        --mode=server \
-        --host=localhost \
-        --port=9999 \
-        --stati_dir=./results \
-        --video_path=./video_1080p.mp4
-    ```
+```bash
+python core.py \
+    --mode=server \
+    --host=localhost \
+    --port=9999 \
+    --stati_dir=./results \
+    --video_path=./video_1080p.mp4
+```
 
 3. 启动（多个）客户端
 
-    ```bash
-    bash start_multi_client.sh
-    ```
-    或者
-    ```bash
-    python main.py \
-        --host=localhost \
-        --port=9999 \
-        --clients=8 \
-        --stati_dir=./results
-    ```
+```bash
+bash start_multi_client.sh
+```
+或者
+```bash
+python main.py \
+    --host=localhost \
+    --port=9999 \
+    --clients=8 \
+    --stati_dir=./results
+```
