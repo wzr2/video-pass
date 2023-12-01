@@ -158,6 +158,7 @@ class VideoStreamingClient:
                     if cv2.waitKey(1) & 0xFF == ord('q'):
                         break
                 self.df.append({'chunk_id': chunk_id, 't2': t2, 't3': t2+transmission_time, 'decoding_time': decoding_time, 'chunk_size': chunk_size})
+                chunk_id += 1
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
 
