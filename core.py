@@ -118,6 +118,7 @@ class VideoStreamingClient:
         self.thread_id = thread_id
         self.client_socket.connect((host, port))  # 连接到指定的主机和端口
         logger.info(f"已连接到服务器{host}:{port}。")
+        self.client_socket.send(b"" + str(self.thread_id).encode("utf-8"))
 
     def _recvall(self, sock, n):
         # 辅助函数来接收确切数量的数据
@@ -131,7 +132,6 @@ class VideoStreamingClient:
 
     def start_streaming(self):
         # send thread id to server
-        self.client_socket.sendall(b"" + str(self.thread_id).encode("utf-8"))
         try:
             chunk_id = 0
             while True:
@@ -186,7 +186,7 @@ if __name__ == "__main__":
         "--host", default="localhost", help="Host"
     )
     parser.add_argument(
-        "--port", default=9999, help="Port"
+        "--port", type=int, default=9999, help="Port"
     )
     # 解析命令行参数
     args = parser.parse_args()
